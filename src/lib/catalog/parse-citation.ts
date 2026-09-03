@@ -174,11 +174,11 @@ export function packageCode(n: number | null): string {
   return `P${n}`;
 }
 
-export function formatFetchedAt(iso: string): string {
+export function formatFetchedAt(iso: string, locale: "de" | "en" = "de"): string {
   if (!iso) return "";
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return iso;
-  return new Intl.DateTimeFormat("de-DE", {
+  return new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "de-DE", {
     dateStyle: "medium",
     timeStyle: "short",
     timeZone: "Europe/Berlin",

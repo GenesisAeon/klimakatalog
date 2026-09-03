@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { type ReactNode, useState } from "react";
+import { LocaleProvider } from "@/lib/i18n/locale";
 
 export function AppProviders({ children }: { children: ReactNode }) {
   const [client] = useState(
@@ -10,5 +11,9 @@ export function AppProviders({ children }: { children: ReactNode }) {
         },
       }),
   );
-  return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={client}>
+      <LocaleProvider>{children}</LocaleProvider>
+    </QueryClientProvider>
+  );
 }

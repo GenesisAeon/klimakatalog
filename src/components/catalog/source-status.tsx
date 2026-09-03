@@ -1,10 +1,10 @@
 import { formatFetchedAt } from "@/lib/catalog/parse-citation";
+import { useLocale } from "@/lib/i18n/locale";
 import { cn } from "@/lib/utils";
 
 export function SourceStatus({
   source,
   fetchedAt,
-  error,
   className,
 }: {
   source: "github" | "seed" | "live";
@@ -12,13 +12,10 @@ export function SourceStatus({
   error?: string;
   className?: string;
 }) {
+  const { locale, t } = useLocale();
   const live = source === "github" || source === "live";
-  const stand = fetchedAt ? formatFetchedAt(fetchedAt) : "";
-  const label = live
-    ? stand
-      ? `Live von GitHub, Stand ${stand}`
-      : "Live von GitHub"
-    : error || "Offline-Fallback-Daten";
+  const stand = fetchedAt ? formatFetchedAt(fetchedAt, locale) : "";
+  const label = live ? t.liveFromGithub(stand) : t.offlineFallback;
 
   return (
     <p

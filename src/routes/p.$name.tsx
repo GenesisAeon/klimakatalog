@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink, FileText, Github, ScrollText } from "lucide-react";
 import { MarkdownExcerpt } from "@/components/catalog/markdown-excerpt";
+import { CatalogBar } from "@/components/catalog/catalog-bar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -9,7 +10,7 @@ import { SourceStatus } from "@/components/catalog/source-status";
 import { fetchPackageSources } from "@/lib/catalog/api";
 import { doiHref, displayTitle, packageCode } from "@/lib/catalog/parse-citation";
 import { SEED_PACKAGES } from "@/lib/catalog/seed";
-import { THEME_LABEL } from "@/lib/catalog/themes";
+import { useLocale } from "@/lib/i18n/locale";
 
 export const Route = createFileRoute("/p/$name")({
   loader: async ({ params }) => {
@@ -21,17 +22,23 @@ export const Route = createFileRoute("/p/$name")({
     return { seed, sources };
   },
   component: PackagePage,
-  notFoundComponent: () => (
-    <main className="flex min-h-dvh flex-col items-center justify-center bg-bg px-6 text-center text-fg">
-      <p className="font-display text-2xl">Paket nicht gefunden</p>
-      <Link to="/" className="mt-4 text-sm text-accent hover:underline">
-        Zurück zum Katalog
-      </Link>
-    </main>
-  ),
+  notFoundComponent: NotFoundPackage,
 });
 
+function NotFoundPackage() {
+  const { t } = useLocale();
+  return (
+    <main className="flex min-h-dvh flex-col items-center justify-center bg-bg px-6 text-center text-fg">
+      <p className="font-display text-2xl">{t.notFound}</p>
+      <Link to="/" className="mt-4 text-sm text-accent hover:underline">
+        {t.backHome}
+      </Link>
+    </main>
+  );
+}
+
 function PackagePage() {
+  const { t, locale } = useLocale();
   const { name } = Route.useParams();
   const { seed, sources } = Route.useLoaderData();
   const title = displayTitle(name, sources.title || seed?.title || name);
@@ -40,16 +47,20 @@ function PackagePage() {
   const keywords = sources.keywords.length ? sources.keywords : (seed?.keywords ?? []);
   const noBridge = sources.noUtacBridge || seed?.noUtacBridge;
   const refs = sources.references.filter((r) => r.title || r.doi);
+  const readmeHref = `https://github.com/GenesisAeon/${name}/blob/${sources.branch}/README.md`;
+  const whitepaperHref = sources.hasWhitepaper ? sources.whitepaperUrl : null;
+  const preferWhitepaper = locale === "de" && Boolean(whitepaperHref);
 
   return (
     <main className="min-h-dvh bg-bg text-fg">
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
+        <CatalogBar />
         <Link
           to="/"
-          className="inline-flex min-h-11 items-center gap-2 text-sm text-muted hover:text-fg"
+          className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm text-muted hover:text-fg"
         >
           <ArrowLeft className="size-4" />
-          Katalog
+          {t.backToCatalog}
         </Link>
 
         <p className="mt-8 font-mono text-xs tracking-[0.2em] text-accent uppercase">
@@ -63,7 +74,7 @@ function PackagePage() {
         <div className="mt-5 flex flex-wrap items-center gap-2">
           <BridgeBadge noUtacBridge={Boolean(noBridge)} />
           {(seed?.themes ?? []).map((theme) => (
-            <Badge key={theme}>{THEME_LABEL[theme]}</Badge>
+            <Badge key={theme}>{t.themes[theme]}</Badge>
           ))}
           {seed?.license ? <Badge variant="outline">{seed.license}</Badge> : null}
         </div>
@@ -76,6 +87,46 @@ function PackagePage() {
         </div>
 
         <div className="mt-6 flex flex-wrap gap-2">
+          {preferWhitepaper && whitepaperHref ? (
+            <Button asChild>
+              <a href={whitepaperHref} target="_blank" rel="noreferrer">
+                <ScrollText className="size-4" />
+                {t.whitepaper}
+                <ExternalLink className="size-3.5 opacity-60" />
+              </a>
+            </Button>
+          ) : (
+            <Button asChild>
+              <a href={readmeHref} target="_blank" rel="noreferrer">
+                <FileText className="size-4" />
+                README.md
+                <ExternalLink className="size-3.5 opacity-60" />
+              </a>
+            </Button>
+          )}
+          {preferWhitepaper ? (
+            <Button asChild variant="outline">
+              <a href={readmeHref} target="_blank" rel="noreferrer">
+                <FileText className="size-4" />
+                README.md
+                <ExternalLink className="size-3.5 opacity-60" />
+              </a>
+            </Button>
+          ) : whitepaperHref ? (
+            <Button asChild variant="outline">
+              <a href={whitepaperHref} target="_blank" rel="noreferrer">
+                <ScrollText className="size-4" />
+                {t.whitepaper}
+                <ExternalLink className="size-3.5 opacity-60" />
+              </a>
+            </Button>
+          ) : null}
+          <Button asChild variant="outline">
+            <a href={seed?.citationUrl ?? `https://github.com/GenesisAeon/${name}`} target="_blank" rel="noreferrer">
+              <FileText className="size-4" />
+              CITATION.cff
+            </a>
+          </Button>
           <Button asChild variant="secondary">
             <a href={seed?.htmlUrl ?? `https://github.com/GenesisAeon/${name}`} target="_blank" rel="noreferrer">
               <Github className="size-4" />
@@ -83,27 +134,15 @@ function PackagePage() {
               <ExternalLink className="size-3.5 opacity-60" />
             </a>
           </Button>
-          <Button asChild variant="outline">
-            <a href={seed?.citationUrl ?? `https://github.com/GenesisAeon/${name}`} target="_blank" rel="noreferrer">
-              <FileText className="size-4" />
-              CITATION.cff
-            </a>
-          </Button>
-          {sources.hasWhitepaper && sources.whitepaperUrl ? (
-            <Button asChild variant="outline">
-              <a href={sources.whitepaperUrl} target="_blank" rel="noreferrer">
-                <ScrollText className="size-4" />
-                WHITEPAPER.md
-                <ExternalLink className="size-3.5 opacity-60" />
-              </a>
-            </Button>
-          ) : null}
         </div>
+        <p className="mt-2 text-xs text-subtle">
+          {preferWhitepaper ? t.whitepaperHint : t.readmeHint}
+        </p>
 
         <Separator className="my-10" />
 
         <section>
-          <h2 className="font-display text-2xl tracking-tight">Paket-DOI</h2>
+          <h2 className="font-display text-2xl tracking-tight">{t.packageDoi}</h2>
           {selfDoi ? (
             <p className="mt-3">
               <a
@@ -114,23 +153,17 @@ function PackagePage() {
               >
                 {selfDoi}
               </a>
-              <span className="mt-1 block text-xs text-subtle">
-                Eigene Archiv-DOI dieses Repos (CITATION.cff / .zenodo.json), nicht die zitierten Studien.
-              </span>
+              <span className="mt-1 block text-xs text-subtle">{t.packageDoiHint}</span>
             </p>
           ) : (
-            <p className="mt-3 text-sm text-muted">
-              Keine eigene Paket-DOI in CITATION.cff oder .zenodo.json.
-            </p>
+            <p className="mt-3 text-sm text-muted">{t.noPackageDoi}</p>
           )}
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl tracking-tight">Quellen-DOIs</h2>
+          <h2 className="font-display text-2xl tracking-tight">{t.sourceDois}</h2>
           {dois.length === 0 ? (
-            <p className="mt-3 text-sm text-muted">
-              In der CITATION.cff dieses Pakets sind keine Paper-DOIs hinterlegt.
-            </p>
+            <p className="mt-3 text-sm text-muted">{t.noSourceDois}</p>
           ) : (
             <ul className="mt-4 space-y-2">
               {dois.map((doi) => (
@@ -151,7 +184,7 @@ function PackagePage() {
 
         {refs.length > 0 ? (
           <section className="mt-10">
-            <h2 className="font-display text-2xl tracking-tight">Literatur je Paket</h2>
+            <h2 className="font-display text-2xl tracking-tight">{t.literature}</h2>
             <ol className="mt-4 space-y-4">
               {refs.map((ref, i) => (
                 <li key={`${ref.doi ?? ref.title}-${i}`} className="text-sm leading-relaxed">
@@ -177,7 +210,7 @@ function PackagePage() {
 
         {keywords.length > 0 ? (
           <section className="mt-10">
-            <h2 className="font-display text-2xl tracking-tight">Schlagworte</h2>
+            <h2 className="font-display text-2xl tracking-tight">{t.keywords}</h2>
             <div className="mt-3 flex flex-wrap gap-1.5">
               {keywords.map((kw) => (
                 <Badge key={kw} variant="default">
@@ -190,7 +223,7 @@ function PackagePage() {
 
         {sources.disclaimer ? (
           <section className="mt-10">
-            <h2 className="font-display text-2xl tracking-tight">Disclaimer</h2>
+            <h2 className="font-display text-2xl tracking-tight">{t.disclaimer}</h2>
             <div className="mt-4 rounded-xl bg-surface p-5 shadow-[var(--shadow-border)]">
               <MarkdownExcerpt text={sources.disclaimer} />
             </div>
@@ -199,13 +232,14 @@ function PackagePage() {
 
         {sources.readme ? (
           <section className="mt-10 pb-12">
-            <h2 className="font-display text-2xl tracking-tight">README</h2>
+            <h2 className="font-display text-2xl tracking-tight">{t.readme}</h2>
+            <p className="mt-1 text-xs text-subtle">{t.readmeHint}</p>
             <div className="mt-4 rounded-xl bg-surface p-5 shadow-[var(--shadow-border)]">
               <MarkdownExcerpt text={sources.readme} />
             </div>
           </section>
         ) : (
-          <p className="mt-10 pb-12 text-sm text-subtle">README derzeit nicht geladen.</p>
+          <p className="mt-10 pb-12 text-sm text-subtle">{t.readmeMissing}</p>
         )}
       </div>
     </main>

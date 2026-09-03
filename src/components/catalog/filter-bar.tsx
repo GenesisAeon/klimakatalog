@@ -12,6 +12,7 @@ import { THEMES } from "@/lib/catalog/themes";
 import type { CatalogFilters } from "@/lib/catalog/filter";
 import type { ClimatePackage, ThemeId } from "@/lib/catalog/types";
 import { displayTitle, packageCode } from "@/lib/catalog/parse-citation";
+import { useLocale } from "@/lib/i18n/locale";
 
 export function FilterBar({
   filters,
@@ -22,15 +23,16 @@ export function FilterBar({
   packages: ClimatePackage[];
   onChange: (next: CatalogFilters) => void;
 }) {
+  const { t } = useLocale();
   return (
     <div className="grid gap-3 md:grid-cols-12">
       <label className="relative md:col-span-5">
-        <span className="sr-only">Suche</span>
+        <span className="sr-only">{t.search}</span>
         <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-subtle" />
         <Input
           value={filters.query}
           onChange={(e) => onChange({ ...filters, query: e.target.value })}
-          placeholder="Suche nach Paket, Thema, Autor, DOI…"
+          placeholder={t.searchPlaceholder}
           className="pl-10"
         />
       </label>
@@ -42,14 +44,14 @@ export function FilterBar({
             onChange({ ...filters, theme: value as ThemeId | "alle" })
           }
         >
-          <SelectTrigger aria-label="Themenfilter">
-            <SelectValue placeholder="Thema" />
+          <SelectTrigger aria-label={t.themeFilter}>
+            <SelectValue placeholder={t.themePlaceholder} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="alle">Alle Themen</SelectItem>
+            <SelectItem value="alle">{t.allThemes}</SelectItem>
             {THEMES.map((theme) => (
               <SelectItem key={theme.id} value={theme.id}>
-                {theme.label}
+                {t.themes[theme.id]}
               </SelectItem>
             ))}
           </SelectContent>
@@ -63,11 +65,11 @@ export function FilterBar({
             onChange({ ...filters, selected: value === "alle" ? "" : value })
           }
         >
-          <SelectTrigger aria-label="Paket wählen">
-            <SelectValue placeholder="Paket" />
+          <SelectTrigger aria-label={t.pickPackage}>
+            <SelectValue placeholder={t.packagePlaceholder} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="alle">Alle Pakete</SelectItem>
+            <SelectItem value="alle">{t.allPackages}</SelectItem>
             {packages.map((pkg) => (
               <SelectItem key={pkg.name} value={pkg.name}>
                 {packageCode(pkg.packageNumber)} · {displayTitle(pkg.name, pkg.title)}
@@ -89,9 +91,9 @@ export function FilterBar({
             })
           }
           aria-pressed={filters.bridge === "ohne"}
-          title="Nur Pakete ohne UTAC-Brücke"
+          title={t.withoutUtacTitle}
         >
-          ohne UTAC
+          {t.withoutUtac}
         </Button>
       </div>
 
@@ -106,7 +108,7 @@ export function FilterBar({
             }
           >
             <X className="size-3.5" />
-            Filter zurücksetzen
+            {t.resetFilters}
           </Button>
         </div>
       )}
