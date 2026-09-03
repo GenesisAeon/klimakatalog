@@ -1,15 +1,10 @@
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { NativeSelect } from "@/components/ui/native-select";
+import { CLUSTERS, type ClusterId } from "@/lib/catalog/cascade";
 import { THEMES } from "@/lib/catalog/themes";
-import type { CatalogFilters } from "@/lib/catalog/filter";
+import { EMPTY_FILTERS, type CatalogFilters } from "@/lib/catalog/filter";
 import type { ClimatePackage, ThemeId } from "@/lib/catalog/types";
 import { displayTitle, packageCode } from "@/lib/catalog/parse-citation";
 import { useLocale } from "@/lib/i18n/locale";
@@ -24,9 +19,15 @@ export function FilterBar({
   onChange: (next: CatalogFilters) => void;
 }) {
   const { t } = useLocale();
+  const hasActive =
+    filters.query ||
+    filters.theme !== "alle" ||
+    filters.cluster !== "alle" ||
+    filters.selected ||
+    filters.bridge !== "alle";
   return (
     <div className="grid gap-3 md:grid-cols-12">
-      <label className="relative md:col-span-5">
+      <label className="relative md:col-span-4">
         <span className="sr-only">{t.search}</span>
         <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-subtle" />
         <Input
@@ -37,46 +38,53 @@ export function FilterBar({
         />
       </label>
 
-      <div className="md:col-span-3">
-        <Select
+      <div className="md:col-span-2">
+        <NativeSelect
+          aria-label={t.themeFilter}
           value={filters.theme}
-          onValueChange={(value) =>
-            onChange({ ...filters, theme: value as ThemeId | "alle" })
-          }
+          onChange={(e) => onChange({ ...filters, theme: e.target.value as ThemeId | "alle" })}
         >
-          <SelectTrigger aria-label={t.themeFilter}>
-            <SelectValue placeholder={t.themePlaceholder} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="alle">{t.allThemes}</SelectItem>
-            {THEMES.map((theme) => (
-              <SelectItem key={theme.id} value={theme.id}>
-                {t.themes[theme.id]}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          <option value="alle">{t.allThemes}</option>
+          {THEMES.map((theme) => (
+            <option key={theme.id} value={theme.id}>
+              {t.themes[theme.id]}
+            </option>
+          ))}
+        </NativeSelect>
       </div>
 
       <div className="md:col-span-3">
-        <Select
-          value={filters.selected || "alle"}
-          onValueChange={(value) =>
-            onChange({ ...filters, selected: value === "alle" ? "" : value })
+        <NativeSelect
+          aria-label={t.clusterFilter}
+          value={filters.cluster}
+          onChange={(e) =>
+            onChange({ ...filters, cluster: e.target.value as ClusterId | "alle" })
           }
         >
-          <SelectTrigger aria-label={t.pickPackage}>
-            <SelectValue placeholder={t.packagePlaceholder} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="alle">{t.allPackages}</SelectItem>
-            {packages.map((pkg) => (
-              <SelectItem key={pkg.name} value={pkg.name}>
-                {packageCode(pkg.packageNumber)} · {displayTitle(pkg.name, pkg.title)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          <option value="alle">{t.allClusters}</option>
+          {CLUSTERS.map((cluster) => (
+            <option key={cluster.id} value={cluster.id}>
+              {cluster.label}
+            </option>
+          ))}
+        </NativeSelect>
+      </div>
+
+      <div className="md:col-span-2">
+        <NativeSelect
+          aria-label={t.pickPackage}
+          value={filters.selected || "alle"}
+          onChange={(e) =>
+            onChange({ ...filters, selected: e.target.value === "alle" ? "" : e.target.value })
+          }
+        >
+          <option value="alle">{t.allPackages}</option>
+          {packages.map((pkg) => (
+            <option key={pkg.name} value={pkg.name}>
+              {packageCode(pkg.packageNumber)} · {displayTitle(pkg.name, pkg.title)}
+            </option>
+          ))}
+        </NativeSelect>
       </div>
 
       <div className="flex md:col-span-1">
@@ -97,21 +105,14 @@ export function FilterBar({
         </Button>
       </div>
 
-      {(filters.query || filters.theme !== "alle" || filters.selected || filters.bridge !== "alle") && (
+      {hasActive ? (
         <div className="md:col-span-12">
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() =>
-              onChange({ query: "", theme: "alle", selected: "", bridge: "alle" })
-            }
-          >
+          <Button type="button" variant="ghost" size="sm" onClick={() => onChange(EMPTY_FILTERS)}>
             <X className="size-3.5" />
             {t.resetFilters}
           </Button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

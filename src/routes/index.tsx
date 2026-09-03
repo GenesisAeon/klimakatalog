@@ -6,7 +6,8 @@ import { FilterBar } from "@/components/catalog/filter-bar";
 import { PackageCard } from "@/components/catalog/package-card";
 import { SourceStatus } from "@/components/catalog/source-status";
 import { Button } from "@/components/ui/button";
-import { EMPTY_FILTERS, filterPackages, type CatalogFilters } from "@/lib/catalog/filter";
+import { EMPTY_FILTERS, filterPackages, CLUSTER_IDS, type CatalogFilters } from "@/lib/catalog/filter";
+import { CLUSTERS, type ClusterId } from "@/lib/catalog/cascade";
 import { listClimatePackages } from "@/lib/catalog/api";
 import { SEED_PACKAGES } from "@/lib/catalog/seed";
 import type { ThemeId } from "@/lib/catalog/types";
@@ -16,6 +17,7 @@ import { useLocale } from "@/lib/i18n/locale";
 type Search = {
   q?: string;
   theme?: string;
+  cluster?: string;
   pkg?: string;
   bridge?: string;
 };
@@ -24,6 +26,7 @@ export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>): Search => ({
     q: typeof search.q === "string" ? search.q : undefined,
     theme: typeof search.theme === "string" ? search.theme : undefined,
+    cluster: typeof search.cluster === "string" ? search.cluster : undefined,
     pkg: typeof search.pkg === "string" ? search.pkg : undefined,
     bridge: typeof search.bridge === "string" ? search.bridge : undefined,
   }),
@@ -36,9 +39,14 @@ function searchToFilters(search: Search): CatalogFilters {
     search.theme && (THEME_IDS as readonly string[]).includes(search.theme)
       ? (search.theme as ThemeId)
       : "alle";
+  const cluster =
+    search.cluster && (CLUSTER_IDS as readonly string[]).includes(search.cluster)
+      ? (search.cluster as ClusterId)
+      : "alle";
   return {
     query: search.q ?? "",
     theme,
+    cluster,
     selected: search.pkg ?? "",
     bridge: search.bridge === "ohne" ? "ohne" : "alle",
   };
@@ -55,6 +63,8 @@ function Home() {
     queryKey: ["climate-packages"],
     queryFn: () => listClimatePackages(),
     initialData: loaderData,
+    refetchOnMount: "always",
+    refetchInterval: (q) => (q.state.data?.source === "github" ? false : 15_000),
   });
 
   const payload = query.data ?? {
@@ -64,6 +74,8 @@ function Home() {
     liveCount: 0,
   };
   const visible = filterPackages(payload.packages, filters);
+  const activeCluster =
+    filters.cluster === "alle" ? undefined : CLUSTERS.find((c) => c.id === filters.cluster);
   const ohne = payload.packages.filter((p) => p.noUtacBridge).length;
   const dois = new Set(payload.packages.flatMap((p) => p.dois)).size;
 
@@ -72,6 +84,7 @@ function Home() {
       search: {
         q: next.query || undefined,
         theme: next.theme === "alle" ? undefined : next.theme,
+        cluster: next.cluster === "alle" ? undefined : next.cluster,
         pkg: next.selected || undefined,
         bridge: next.bridge === "alle" ? undefined : next.bridge,
       },
@@ -117,6 +130,12 @@ function Home() {
       </section>
 
       <section className="relative mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+        {activeCluster ? (
+          <p className="mb-5 max-w-3xl text-sm leading-relaxed text-muted">
+            <span className="text-fg">{activeCluster.label}. </span>
+            {activeCluster.note}
+          </p>
+        ) : null}
         {visible.length === 0 ? (
           <div className="rounded-xl bg-surface px-6 py-16 text-center shadow-[var(--shadow-border)]">
             <Leaf className="mx-auto size-6 text-muted" />

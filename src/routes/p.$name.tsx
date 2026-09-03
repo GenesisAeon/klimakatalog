@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { BridgeBadge, BridgeCallout } from "@/components/catalog/bridge-badge";
 import { SourceStatus } from "@/components/catalog/source-status";
+import { RelatedPackages } from "@/components/catalog/related-packages";
 import { fetchPackageSources } from "@/lib/catalog/api";
 import { doiHref, displayTitle, packageCode } from "@/lib/catalog/parse-citation";
 import { SEED_PACKAGES } from "@/lib/catalog/seed";
@@ -231,7 +232,7 @@ function PackagePage() {
         ) : null}
 
         {sources.readme ? (
-          <section className="mt-10 pb-12">
+          <section className="mt-10">
             <h2 className="font-display text-2xl tracking-tight">{t.readme}</h2>
             <p className="mt-1 text-xs text-subtle">{t.readmeHint}</p>
             <div className="mt-4 rounded-xl bg-surface p-5 shadow-[var(--shadow-border)]">
@@ -239,8 +240,10 @@ function PackagePage() {
             </div>
           </section>
         ) : (
-          <p className="mt-10 pb-12 text-sm text-subtle">{t.readmeMissing}</p>
+          <p className="mt-10 text-sm text-subtle">{t.readmeMissing}</p>
         )}
+
+        <RelatedPackages name={name} packages={SEED_PACKAGES} />
       </div>
     </main>
   );

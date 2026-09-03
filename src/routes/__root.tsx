@@ -33,11 +33,16 @@ export const Route = createRootRoute({
     ],
   }),
   component: () => (
-    <html lang="de" className="antialiased" suppressHydrationWarning>
+    <html
+      lang="de"
+      className="antialiased"
+      suppressHydrationWarning
+      style={{ background: "#0b0f0e", color: "#e8eee9" }}
+    >
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body style={{ background: "#0b0f0e", color: "#e8eee9", minHeight: "100dvh" }}>
         <PreviewHostBridge />
         {/* Platform AuthProvider is a passthrough. This catalog does not use accounts,
             sessions or login (VITE_AUTH_ENABLED=false). Kept for the document shell;
@@ -51,4 +56,21 @@ export const Route = createRootRoute({
       </body>
     </html>
   ),
+  errorComponent: RootError,
 });
+
+function RootError({ error }: { error: Error }) {
+  return (
+    <html lang="de">
+      <body style={{ background: "#0b0f0e", color: "#e8eee9", fontFamily: "sans-serif", padding: 24 }}>
+        <p style={{ fontSize: 20, margin: 0 }}>Klimakatalog — Anzeige unterbrochen</p>
+        <p style={{ color: "#8a948c", marginTop: 8 }}>{error.message}</p>
+        <p style={{ marginTop: 16 }}>
+          <a href="/" style={{ color: "#9bb5a8" }}>
+            Zurück zum Katalog
+          </a>
+        </p>
+      </body>
+    </html>
+  );
+}

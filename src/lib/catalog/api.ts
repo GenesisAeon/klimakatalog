@@ -7,6 +7,16 @@ import { THEME_IDS } from "./types";
 const GITHUB_REPOS = "https://api.github.com/users/GenesisAeon/repos?per_page=100";
 const RAW = "https://raw.githubusercontent.com/GenesisAeon";
 const UA = "GenesisAeon-Klimakatalog/1.0";
+const LIST_TTL_MS = 5 * 60 * 1000;
+
+type GhRepo = {
+  name: string;
+  description: string | null;
+  html_url: string;
+  default_branch: string;
+  updated_at: string;
+  homepage: string | null;
+};
 
 const CLIMATE_HINT =
   /climate|glacier|ocean|permafrost|coral|forest|amazon|amoc|aerosol|methane|hydrolog|wetland|biodivers|pollinator|wildfire|flood|ice.?shelf|snowpack|carbon|adaptation|heatwave|acidification|deoxygenation|tipping|cryospher|enso|el.?nino|peatland|vegetation|invasive|gene.?flow|soil.?moisture/i;
@@ -38,14 +48,33 @@ const THEME_KEYS: { id: ThemeId; keys: string[] }[] = [
   { id: "kohlenstoff", keys: ["carbon", "methane", "black-carbon", "albedo", "carbon-sink"] },
 ];
 
-async function fetchText(url: string, timeoutMs = 5000): Promise<string | null> {
+function githubToken(): string | null {
+  return process.env.GITHUB_TOKEN || process.env.GH_TOKEN || null;
+}
+
+function apiHeaders(): Record<string, string> {
+  const headers: Record<string, string> = {
+    "User-Agent": UA,
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+  const token = githubToken();
+  if (token) headers.Authorization = `Bearer ${token}`;
+  return headers;
+}
+
+function rawHeaders(): Record<string, string> {
+  const headers: Record<string, string> = { "User-Agent": UA, Accept: "text/plain" };
+  const token = githubToken();
+  if (token) headers.Authorization = `Bearer ${token}`;
+  return headers;
+}
+
+async function fetchText(url: string, timeoutMs = 8000): Promise<string | null> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
-    const res = await fetch(url, {
-      signal: ctrl.signal,
-      headers: { "User-Agent": UA, Accept: "application/vnd.github+json" },
-    });
+    const res = await fetch(url, { signal: ctrl.signal, headers: rawHeaders() });
     if (!res.ok) return null;
     return await res.text();
   } catch {
@@ -53,6 +82,46 @@ async function fetchText(url: string, timeoutMs = 5000): Promise<string | null> 
   } finally {
     clearTimeout(timer);
   }
+}
+
+function nextLink(header: string | null): string | null {
+  if (!header) return null;
+  return header.match(/<([^>]+)>;\s*rel="next"/)?.[1] ?? null;
+}
+
+async function fetchAllRepos(): Promise<GhRepo[] | null> {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const repos = await fetchAllReposOnce();
+    if (repos) return repos;
+    if (attempt === 0) await new Promise((r) => setTimeout(r, 600));
+  }
+  return null;
+}
+
+async function fetchAllReposOnce(): Promise<GhRepo[] | null> {
+  const repos: GhRepo[] = [];
+  let url: string | null = GITHUB_REPOS;
+  for (let page = 0; page < 5 && url; page++) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 12_000);
+    try {
+      const res = await fetch(url, { signal: ctrl.signal, headers: apiHeaders() });
+      if (!res.ok) {
+        console.warn(`[catalog] GitHub API ${res.status}`);
+        return repos.length ? repos : null;
+      }
+      const parsed = (await res.json()) as GhRepo[];
+      if (!Array.isArray(parsed)) return null;
+      repos.push(...parsed);
+      url = nextLink(res.headers.get("link"));
+    } catch (err) {
+      console.warn("[catalog] GitHub API failed", err instanceof Error ? err.message : err);
+      return repos.length ? repos : null;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+  return repos;
 }
 
 function inferThemes(blob: string): ThemeId[] {
@@ -70,17 +139,7 @@ function isClimateRepo(name: string, description: string): boolean {
   return false;
 }
 
-function mergeLive(
-  seed: ClimatePackage[],
-  remote: Array<{
-    name: string;
-    description: string | null;
-    html_url: string;
-    default_branch: string;
-    updated_at: string;
-    homepage: string | null;
-  }>,
-): ClimatePackage[] {
+function mergeLive(seed: ClimatePackage[], remote: GhRepo[]): ClimatePackage[] {
   const byName = new Map(seed.map((p) => [p.name, { ...p }]));
   for (const repo of remote) {
     if (!isClimateRepo(repo.name, repo.description ?? "")) continue;
@@ -125,52 +184,41 @@ function mergeLive(
   });
 }
 
+let listCache: { at: number; payload: CatalogPayload } | null = null;
+
 export const listClimatePackages = createServerFn({ method: "GET" }).handler(
   async (): Promise<CatalogPayload> => {
+    const now = Date.now();
+    if (listCache && now - listCache.at < LIST_TTL_MS) {
+      return listCache.payload;
+    }
     const fetchedAt = new Date().toISOString();
-    const body = await fetchText(GITHUB_REPOS, 6000);
-    if (!body) {
-      return {
-        source: "seed",
-        fetchedAt,
-        packages: SEED_PACKAGES,
-        liveCount: 0,
-        error: "GitHub nicht erreichbar — lokaler CITATION.cff-Kern.",
-      };
+    const remote = await fetchAllRepos();
+    if (!remote) {
+      return (
+        listCache?.payload ?? {
+          source: "seed",
+          fetchedAt,
+          packages: SEED_PACKAGES,
+          liveCount: 0,
+          error: "GitHub nicht erreichbar — lokaler CITATION.cff-Kern.",
+        }
+      );
     }
-    try {
-      const parsed = JSON.parse(body) as Array<{
-        name: string;
-        description: string | null;
-        html_url: string;
-        default_branch: string;
-        updated_at: string;
-        homepage: string | null;
-      }>;
-      if (!Array.isArray(parsed)) {
-        throw new Error("unexpected payload");
-      }
-      const packages = mergeLive(SEED_PACKAGES, parsed);
-      return {
-        source: "github",
-        fetchedAt,
-        packages,
-        liveCount: packages.filter((p) => p.live).length,
-      };
-    } catch {
-      return {
-        source: "seed",
-        fetchedAt,
-        packages: SEED_PACKAGES,
-        liveCount: 0,
-        error: "GitHub-Antwort unlesbar — lokaler CITATION.cff-Kern.",
-      };
-    }
+    const packages = mergeLive(SEED_PACKAGES, remote);
+    const payload: CatalogPayload = {
+      source: "github",
+      fetchedAt,
+      packages,
+      liveCount: packages.filter((p) => p.live).length,
+    };
+    listCache = { at: now, payload };
+    return payload;
   },
 );
 
 async function readRaw(name: string, branch: string, file: string): Promise<string | null> {
-  return fetchText(`${RAW}/${name}/${branch}/${file}`, 6000);
+  return fetchText(`${RAW}/${name}/${branch}/${file}`, 8000);
 }
 
 export const fetchPackageSources = createServerFn({ method: "GET" })
