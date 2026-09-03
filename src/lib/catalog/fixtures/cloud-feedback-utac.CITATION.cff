@@ -1,0 +1,44 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Römer
+    given-names: Johann
+    affiliation: "MOR Research Collective"
+title: "cloud-feedback-utac"
+version: "1.0.1"
+date-released: "2026-08-31"
+url: "https://github.com/GenesisAeon/cloud-feedback-utac"
+repository-code: "https://github.com/GenesisAeon/cloud-feedback-utac"
+license: MIT
+abstract: "Real cloud-feedback / climate-sensitivity science (Myers et al. 2021, Tan et al. 2025) -- deliberately no UTAC/CREP/AFET bridge, honest presentation of an active scientific disagreement. GenesisAeon P89."
+keywords:
+  - GenesisAeon
+  - P89
+  - climate
+  - cloud-feedback
+  - climate-sensitivity
+  - open-science
+references:
+  - type: article
+    title: "Observational constraints on low cloud feedback reduce uncertainty of climate sensitivity"
+    authors:
+      - name: "Myers, T.A."
+      - name: "Scott, R.C."
+      - name: "Zelinka, M.D."
+    year: 2021
+    journal: "Nature Climate Change"
+    volume: 11
+    issue: 6
+    start: 501
+    end: 507
+  - type: article
+    title: "Moderate climate sensitivity due to opposing mixed-phase cloud feedbacks"
+    authors:
+      - name: "Tan, I."
+      - name: "Zhou, C."
+      - name: "Lamy, A."
+      - name: "Stauffer, C.L."
+    year: 2025
+    journal: "npj Climate and Atmospheric Science"
+    volume: 8

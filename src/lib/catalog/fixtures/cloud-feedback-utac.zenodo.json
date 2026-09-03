@@ -1,0 +1,27 @@
+{
+  "title": "cloud-feedback-utac — P89: Real cloud-feedback / climate-sensitivity science",
+  "description": "<p>Real cloud-feedback / climate-sensitivity science (Myers et al. 2021, Tan et al. 2025), honestly presenting a genuine, current, unresolved scientific disagreement about the direction of climate sensitivity from cloud-feedback observational constraints. Deliberately has NO UTAC/CREP/AFET bridge. See DISCLAIMER.md. Part of the <strong>GenesisAeon</strong> ecosystem (P89, domain: climate / cloud feedback).</p>",
+  "creators": [
+    {
+      "name": "Römer, Johann",
+      "affiliation": "Independent Researcher / MOR Research Collective"
+    }
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "version": "1.0.1",
+  "keywords": [
+    "GenesisAeon",
+    "P89",
+    "climate",
+    "cloud-feedback",
+    "climate-sensitivity",
+    "open-science"
+  ],
+  "communities": [
+    {
+      "identifier": "genesisaeon"
+    }
+  ]
+}

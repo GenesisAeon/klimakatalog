@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Römer
+    given-names: Johann
+    affiliation: "MOR Research Collective"
+title: "ocean-acidification-utac"
+version: "1.0.0"
+date-released: "2026-09-01"
+url: "https://github.com/GenesisAeon/ocean-acidification-utac"
+repository-code: "https://github.com/GenesisAeon/ocean-acidification-utac"
+license: MIT
+abstract: "Real ocean acidification planetary-boundary science (Findlay et al. 2025, Global Change Biology: boundary crossed globally, ~40% surface / ~60% subsurface to 200m) including the boundary metric's own active scientific revision (Findlay & Feely 2026, National Science Review: the original 80% threshold doesn't satisfy its own justifying criteria). Deliberately no UTAC/CREP/AFET bridge -- see DISCLAIMER.md. GenesisAeon P122."
+keywords:
+  - GenesisAeon
+  - P122
+  - climate
+  - ocean acidification
+  - planetary boundary
+  - open-science
+references:
+  - type: article
+    title: "Ocean Acidification: Another Planetary Boundary Crossed"
+    authors:
+      - name: "Findlay, H.S."
+      - name: "Feely, R.A."
+      - name: "Jiang, L.-Q."
+    year: 2025
+    journal: "Global Change Biology"
+    doi: "10.1111/gcb.70238"
+  - type: article
+    title: "Revisiting the ocean acidification planetary boundary"
+    authors:
+      - name: "Findlay, H.S."
+      - name: "Feely, R.A."
+    year: 2026
+    journal: "National Science Review"
+    doi: "10.1093/nsr/nwag173"

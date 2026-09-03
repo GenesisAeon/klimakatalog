@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Römer
+    given-names: Johann
+    affiliation: "MOR Research Collective"
+title: "permafrost-utac"
+version: "1.0.1"
+date-released: "2026-08-31"
+url: "https://github.com/GenesisAeon/permafrost-utac"
+repository-code: "https://github.com/GenesisAeon/permafrost-utac"
+license: MIT
+abstract: "Real ESA CCI Permafrost v5.0 data and Schuur et al. 2022 carbon-stock science -- deliberately no UTAC/CREP/AFET bridge, per climate-topic convention. GenesisAeon P60."
+keywords:
+  - GenesisAeon
+  - P60
+  - permafrost
+  - climate
+  - ESA-CCI
+  - carbon-feedback
+  - open-science
+references:
+  - type: dataset
+    title: "ESA Climate Change Initiative (CCI) Permafrost, v5.0"
+    authors:
+      - name: "University of Oslo"
+    doi: "10.5285/a6fbedd8ee5b472c8e84e55f746c1704"
+  - type: article
+    title: "Permafrost and Climate Change: Carbon Cycle Feedbacks From the Warming Arctic"
+    authors:
+      - name: "Schuur, E.A.G."
+    year: 2022
+    journal: "Annual Review of Environment and Resources"
+    volume: 47
+    start: 343
+    end: 371

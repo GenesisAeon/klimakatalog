@@ -1,0 +1,35 @@
+{
+  "title": "amoc-utac — P18: AMOC collapse early warning — GenesisAeon Package 18 (UTAC/CREP dynamical system)",
+  "description": "<p>AMOC collapse early warning — GenesisAeon Package 18 (UTAC/CREP dynamical system). The UTAC-Logistic ODE identifies critical thresholds in Atlantic Meridional Overturning Circulation (AMOC) strength time series, enabling early-warning detection of potential collapse events; CREP metrics characterise coherence and emergence in thermohaline circulation dynamics.</p><p>Part of the <strong>GenesisAeon</strong> ecosystem (P18, domain: oceanography / AMOC tipping). Within the GenesisAeon CREP Criticality Spectrum, this package's characteristic coupling value is Γ ≈ 0.251.</p><p>See <a href=\"https://github.com/GenesisAeon/amoc-utac\">github.com/GenesisAeon/amoc-utac</a> for source, documentation, and reproducibility notebooks.</p>",
+  "creators": [
+    {
+      "name": "Römer, Johann",
+      "affiliation": "Independent Researcher / MOR Research Collective"
+    }
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "keywords": [
+    "GenesisAeon",
+    "P18",
+    "oceanography / AMOC tipping",
+    "UTAC",
+    "CREP",
+    "open science"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.19645351",
+      "relation": "isPartOf",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    }
+  ],
+  "version": "1.3.0",
+  "communities": [
+    {
+      "identifier": "genesisaeon"
+    }
+  ]
+}
