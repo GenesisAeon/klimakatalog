@@ -60,10 +60,16 @@ export const CLUSTERS: Cluster[] = [
       "glacial-seismicity-utac",
       "paraglacial-hazard-utac",
       "distributed-buffer-resilience-utac",
+      "mountain-governance-adaptation-utac",
+      "black-carbon-albedo-utac",
+      "freshwater-ecosystem-stressors-utac",
+      "landscape-restoration-hydrology-utac",
+      "urban-green-infrastructure-utac",
       "glacier-legacy-contaminants-utac",
+      "snowpack-elevation-warming-utac",
       "tropical-glacier-ecosystem-rle-utac",
     ],
-    note: "tropical-glacier-ecosystem-rle-utac (P123) erweitert den Puffer-Verlust-Mechanismus der Gletscher-Serie in Richtung IUCN-RLE-Kollaps-Diagnostik.",
+    note: "Die explizit im Ökosystem selbst so benannte 'P99-P103-Serie' (glacier-buffer -> glacier-buffer-replacement, 'companion to P99' -> distributed-buffer-resilience, 'companion to P99 and P100'), mit mountain-governance-adaptation-utac (P104) als selbstbezeichnetem 'governance/institutional closing chapter of the P99-P103 series'. black-carbon-albedo-utac (P105) ist explizit 'a new atmospheric-deposition lens on the P99-P104 series'. freshwater-ecosystem-stressors-utac (P106) ist explizit 'the ecological bridge between the P99-P102 physical series and the P103-P104 resilience/governance series'. landscape-restoration-hydrology-utac (P107) 'extends the P99/P103 distributed-buffer series'; urban-green-infrastructure-utac (P108) ist explizit 'companion to landscape-restoration-hydrology-utac (P107)'. glacier-legacy-contaminants-utac (P109) 'bridges glacier-buffer-utac (P99), black-carbon-albedo-utac (P105), and freshwater-ecosystem-stressors-utac (P106)'. snowpack-elevation-warming-utac (P110) 'quantifies distributed-buffer-resilience-utac's (P103) unquantified snow buffer category and extends glacier-buffer-utac's (P99) peak-water framing'. tropical-glacier-ecosystem-rle-utac (P123) erweitert den Puffer-Verlust-Mechanismus in Richtung IUCN-RLE-Kollaps-Diagnostik. Alle Zitate stammen wörtlich aus den jeweiligen Paket-Abstracts.",
   },
   {
     id: "intervention-despite-decline",
@@ -114,6 +120,12 @@ export const CROSS_CLUSTER_EDGES: CrossClusterEdge[] = [
     to: "antarctic-ice-shelf-utac",
     type: "ASSOCIATED_NON_OVERLAPPING",
     note: "Gleiche Abgrenzung wie oben, dokumentiert im ENSO-Modul von antarctic-ice-shelf-utac.",
+  },
+  {
+    from: "black-carbon-albedo-utac",
+    to: "aerosol-masking-utac",
+    type: "CONTRAST",
+    note: "black-carbon-albedo-utac (P105) beschreibt sich selbst explizit als Kontrast zu aerosol-masking-utac's (P88) globalem Kühleffekt -- Ruß erwärmt/verdunkelt lokal, Sulfat-Aerosole kühlen global durch Maskierung.",
   },
 ];
 

@@ -1,0 +1,23 @@
+# Klimakatalog
+
+> Kuratierter Katalog von 46 GenesisAeon-Klimapaketen (P17-P128) mit vollen Abstracts, DOIs und Themen-Tags, plus eine kuratierte Karte der real dokumentierten Querbeziehungen zwischen ihnen — fünf Cluster, mehrere Cross-Cluster-Kontraste. Jedes Paket steht für ein eigenes, zitierbares Stück Klimawissenschaft, keine Universalgleichung.
+
+Diese Karte ist keine automatische Ähnlichkeitssuche. Jede Cluster-Zugehörigkeit und jede Kante trägt eine Begründung, WO die Verbindung im Paket selbst tatsächlich dokumentiert ist (z.B. "companion to P99", "bridges P99/P105/P106", "extends the P99/P103 series") — thematische Ähnlichkeit allein reicht nicht.
+
+## Themen-Taxonomie
+atmosphaere, ozean, kryosphaere, biosphaere, hydrologie, kohlenstoff, gesellschaft, extreme — jedes Paket trägt 1-4 dieser Tags (siehe context.json).
+
+## Cluster
+1. Marine Physiologie (5 Pakete, Verbinder: marine-compound-stressors-utac / P124)
+2. Landnutzung & Biodiversitätstreiber (5 Pakete, Verbinder: climate-landuse-biodiversity-nexus-utac / P126)
+3. Gletscher & Kryosphäre — die P99-P110-Serie (13 Pakete, inkl. Governance-Abschlusskapitel P104)
+4. Gezielte Maßnahmen wirken trotz Gesamtrückgang (3 Pakete)
+5. Polares System — Geschwister-Trio (3 Pakete, echte Autoren-Verbindung: Aku Riihelä)
+
+## Maschinenlesbar
+- [context.json](/context.json) — alle 46 Pakete mit Themen, DOIs, Zenodo-DOI, Cluster-Zugehörigkeit und Cross-Cluster-Beziehungen; die vollständige Cluster/Edge-Definition
+- Schema: https://github.com/GenesisAeon/apps-hub/blob/main/docs/ai-context-schema.md
+
+## Ökosystem
+- Sieben interaktive Sandboxes bauen auf einzelnen Katalog-Paketen auf: https://github.com/GenesisAeon/apps-hub
+- Quelle der Cluster/Kanten-Logik: src/lib/catalog/cascade.ts (nicht vollständig — nur real belegte Verbindungen)

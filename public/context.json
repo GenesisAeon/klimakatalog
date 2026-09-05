@@ -1,0 +1,951 @@
+{
+  "schema_version": "1.0.0",
+  "generated": "2026-09-05",
+  "catalog": {
+    "title": "Klimakatalog",
+    "repo_url": "https://github.com/GenesisAeon/klimakatalog",
+    "live_url": "https://klimakatalog.vercel.app",
+    "package_count": 46,
+    "note": "This is the curated core with full abstracts/themes/DOIs. The live site additionally lists further GenesisAeon repos fetched live from GitHub that are not yet part of this curated seed set (no themes/cluster data yet for those)."
+  },
+  "themes": {
+    "atmosphaere": "Atmosphere (clouds, aerosols, circulation)",
+    "ozean": "Ocean (circulation, heat, chemistry)",
+    "kryosphaere": "Cryosphere (ice, snow, permafrost, glaciers)",
+    "biosphaere": "Biosphere (ecosystems, forests, species)",
+    "hydrologie": "Hydrology (water cycle, rivers, groundwater)",
+    "kohlenstoff": "Carbon cycle (sources, sinks, feedbacks)",
+    "gesellschaft": "Society (socioeconomics, governance, health, adaptation)",
+    "extreme": "Extremes & tipping-point statistics"
+  },
+  "clusters": [
+    {
+      "id": "marine-physiology",
+      "label": "Marine Physiologie",
+      "packageNames": [
+        "ocean-deoxygenation-utac",
+        "coral-reef-utac",
+        "marine-heatwave-utac",
+        "marine-compound-stressors-utac",
+        "ocean-acidification-utac"
+      ],
+      "note": "marine-compound-stressors-utac (P124) is the explicit connector via the Metabolic Index (Deutsch et al. 2015), coupling ocean-deoxygenation/coral-reef/marine-heatwave. ocean-acidification-utac (P122) and P124 describe the same acidification trend from two angles (planetary-boundary vs. compound-event statistics)."
+    },
+    {
+      "id": "landuse-biodiversity-driver",
+      "label": "Land Use & Biodiversity Drivers",
+      "packageNames": [
+        "amazon-utac",
+        "freshwater-ecosystem-stressors-utac",
+        "mixed-forest-resilience-utac",
+        "biodiversity-utac",
+        "climate-landuse-biodiversity-nexus-utac"
+      ],
+      "note": "climate-landuse-biodiversity-nexus-utac (P126) is the explicit connector via the official IPBES Nexus driver framework, mapping amazon/freshwater/mixed-forest/biodiversity to their respective primary driver."
+    },
+    {
+      "id": "glacier-cryosphere",
+      "label": "Glacier & Cryosphere (P99-P110 series)",
+      "packageNames": [
+        "glacier-buffer-utac",
+        "glacier-buffer-replacement-utac",
+        "glacial-seismicity-utac",
+        "paraglacial-hazard-utac",
+        "distributed-buffer-resilience-utac",
+        "mountain-governance-adaptation-utac",
+        "black-carbon-albedo-utac",
+        "freshwater-ecosystem-stressors-utac",
+        "landscape-restoration-hydrology-utac",
+        "urban-green-infrastructure-utac",
+        "glacier-legacy-contaminants-utac",
+        "snowpack-elevation-warming-utac",
+        "tropical-glacier-ecosystem-rle-utac"
+      ],
+      "note": "Explicit self-named 'P99-P103 series' plus its documented extensions (P104 governance closing chapter, P105 atmospheric-deposition lens, P106 ecological bridge, P107 hydrology extension, P108 companion, P109 bridges P99/P105/P106, P110 quantifies P103's snow buffer). All relationship phrases are quoted verbatim from each package's own abstract."
+    },
+    {
+      "id": "intervention-despite-decline",
+      "label": "Targeted Intervention Works Despite Overall Decline",
+      "packageNames": [
+        "coral-reef-utac",
+        "biodiversity-utac",
+        "assisted-gene-flow-utac"
+      ],
+      "note": "The same real finding-shape appears in three packages (Walker et al. 2023 for coral-reef, Simkins et al. 2025 for biodiversity, prospective/interventional for assisted-gene-flow) -- not yet cross-linked within the packages themselves."
+    },
+    {
+      "id": "polar-system",
+      "label": "Polar System",
+      "packageNames": [
+        "antarctic-ice-shelf-utac",
+        "arctic-climate-utac",
+        "polar-biodiversity-utac"
+      ],
+      "note": "Explicit sibling trio, built the same way (six parallel independent research passes per package). Real author link: Aku Riihela co-authors both the Antarctic and Arctic sea-ice-albedo studies."
+    }
+  ],
+  "cross_cluster_edges": [
+    {
+      "from": "black-carbon-albedo-utac",
+      "to": "arctic-climate-utac",
+      "type": "CONTRAST",
+      "note": "Explicitly different geography (Tibetan Plateau vs. Arctic), no overlap -- documented in the Arctic package."
+    },
+    {
+      "from": "black-carbon-albedo-utac",
+      "to": "antarctic-ice-shelf-utac",
+      "type": "CONTRAST",
+      "note": "Explicitly different geography (Tibetan Plateau vs. Antarctic Peninsula) -- documented in the Antarctic package."
+    },
+    {
+      "from": "el-nino-amplification-utac",
+      "to": "antarctic-ice-shelf-utac",
+      "type": "ASSOCIATED_NON_OVERLAPPING",
+      "note": "Same overarching topic (ENSO), documented deliberate non-overlap in antarctic-ice-shelf-utac's ENSO module."
+    },
+    {
+      "from": "marine-heatwave-utac",
+      "to": "antarctic-ice-shelf-utac",
+      "type": "ASSOCIATED_NON_OVERLAPPING",
+      "note": "Same boundary as above, documented in antarctic-ice-shelf-utac's ENSO module."
+    },
+    {
+      "from": "black-carbon-albedo-utac",
+      "to": "aerosol-masking-utac",
+      "type": "CONTRAST",
+      "note": "black-carbon-albedo-utac (P105) explicitly frames itself as contrasting aerosol-masking-utac's (P88) global cooling effect -- black carbon warms/darkens locally, sulfate aerosols cool globally via masking."
+    }
+  ],
+  "packages": [
+    {
+      "name": "amoc-utac",
+      "title": "amoc-utac — Atlantic Meridional Overturning Circulation Collapse Early Warning",
+      "package_id": 18,
+      "themes": [
+        "ozean",
+        "extreme"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/amoc-utac",
+      "primary_sources_doi": [
+        "10.1126/sciadv.adk1189",
+        "10.1038/s41467-023-39810-w"
+      ],
+      "zenodo_doi": "10.5281/zenodo.21432660"
+    },
+    {
+      "name": "amazon-utac",
+      "title": "amazon-utac: Amazon Rainforest Savannisation Threshold UTAC Model",
+      "package_id": 19,
+      "themes": [
+        "ozean",
+        "biosphaere",
+        "extreme"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/amazon-utac",
+      "primary_sources_doi": [
+        "10.1126/sciadv.aba2949",
+        "10.1038/s41558-022-01287-8",
+        "10.5281/zenodo.5831935"
+      ],
+      "zenodo_doi": "10.5281/zenodo.20746954",
+      "cluster_ids": [
+        "landuse-biodiversity-driver"
+      ]
+    },
+    {
+      "name": "carbon-sinks-utac",
+      "title": "carbon-sinks-utac",
+      "package_id": 59,
+      "themes": [
+        "ozean",
+        "kohlenstoff"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/carbon-sinks-utac",
+      "primary_sources_doi": []
+    },
+    {
+      "name": "permafrost-utac",
+      "title": "permafrost-utac",
+      "package_id": 60,
+      "themes": [
+        "kryosphaere",
+        "kohlenstoff"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/permafrost-utac",
+      "primary_sources_doi": [
+        "10.5285/a6fbedd8ee5b472c8e84e55f746c1704"
+      ]
+    },
+    {
+      "name": "climate-dashboard",
+      "title": "climate-dashboard",
+      "package_id": 82,
+      "themes": [
+        "atmosphaere"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/climate-dashboard",
+      "primary_sources_doi": []
+    },
+    {
+      "name": "cascading-tipping-utac",
+      "title": "cascading-tipping-utac",
+      "package_id": 87,
+      "themes": [
+        "ozean",
+        "biosphaere",
+        "extreme"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/cascading-tipping-utac",
+      "primary_sources_doi": []
+    },
+    {
+      "name": "aerosol-masking-utac",
+      "title": "aerosol-masking-utac",
+      "package_id": 88,
+      "themes": [
+        "atmosphaere"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/aerosol-masking-utac",
+      "primary_sources_doi": [],
+      "cross_cluster_relations": [
+        {
+          "related_package": "black-carbon-albedo-utac",
+          "type": "CONTRAST",
+          "note": "black-carbon-albedo-utac (P105) explicitly frames itself as contrasting aerosol-masking-utac's (P88) global cooling effect -- black carbon warms/darkens locally, sulfate aerosols cool globally via masking."
+        }
+      ]
+    },
+    {
+      "name": "cloud-feedback-utac",
+      "title": "cloud-feedback-utac",
+      "package_id": 89,
+      "themes": [
+        "atmosphaere"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/cloud-feedback-utac",
+      "primary_sources_doi": []
+    },
+    {
+      "name": "soil-moisture-utac",
+      "title": "soil-moisture-utac",
+      "package_id": 90,
+      "themes": [
+        "hydrologie"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/soil-moisture-utac",
+      "primary_sources_doi": []
+    },
+    {
+      "name": "vegetation-state-utac",
+      "title": "vegetation-state-utac",
+      "package_id": 91,
+      "themes": [
+        "biosphaere"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/vegetation-state-utac",
+      "primary_sources_doi": []
+    },
+    {
+      "name": "methane-hydrates-utac",
+      "title": "methane-hydrates-utac",
+      "package_id": 92,
+      "themes": [
+        "kryosphaere",
+        "atmosphaere",
+        "kohlenstoff"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/methane-hydrates-utac",
+      "primary_sources_doi": []
+    },
+    {
+      "name": "ocean-deoxygenation-utac",
+      "title": "ocean-deoxygenation-utac",
+      "package_id": 93,
+      "themes": [
+        "ozean"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/ocean-deoxygenation-utac",
+      "primary_sources_doi": [],
+      "cluster_ids": [
+        "marine-physiology"
+      ]
+    },
+    {
+      "name": "extreme-vs-mean-utac",
+      "title": "extreme-vs-mean-utac",
+      "package_id": 94,
+      "themes": [
+        "extreme"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/extreme-vs-mean-utac",
+      "primary_sources_doi": []
+    },
+    {
+      "name": "adaptation-resilience-utac",
+      "title": "adaptation-resilience-utac",
+      "package_id": 95,
+      "themes": [
+        "gesellschaft"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/adaptation-resilience-utac",
+      "primary_sources_doi": []
+    },
+    {
+      "name": "socioeconomic-feedback-utac",
+      "title": "socioeconomic-feedback-utac",
+      "package_id": 96,
+      "themes": [
+        "gesellschaft"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/socioeconomic-feedback-utac",
+      "primary_sources_doi": []
+    },
+    {
+      "name": "glacier-buffer-utac",
+      "title": "glacier-buffer-utac",
+      "package_id": 99,
+      "themes": [
+        "kryosphaere",
+        "hydrologie"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/glacier-buffer-utac",
+      "primary_sources_doi": [],
+      "cluster_ids": [
+        "glacier-cryosphere"
+      ]
+    },
+    {
+      "name": "glacier-buffer-replacement-utac",
+      "title": "glacier-buffer-replacement-utac",
+      "package_id": 100,
+      "themes": [
+        "kryosphaere",
+        "hydrologie"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/glacier-buffer-replacement-utac",
+      "primary_sources_doi": [
+        "10.1088/1748-9326/11/5/054022",
+        "10.5194/esurf-10-723-2022",
+        "10.1186/s00015-021-00399-1",
+        "10.1038/s41893-019-0307-1",
+        "10.1016/j.scitotenv.2022.153937",
+        "10.1038/s41893-023-01089-6",
+        "10.1080/02626667.2024.2332625"
+      ],
+      "cluster_ids": [
+        "glacier-cryosphere"
+      ]
+    },
+    {
+      "name": "glacial-seismicity-utac",
+      "title": "glacial-seismicity-utac",
+      "package_id": 101,
+      "themes": [
+        "kryosphaere"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/glacial-seismicity-utac",
+      "primary_sources_doi": [
+        "10.5194/se-6-621-2015",
+        "10.1785/0120100190",
+        "10.1029/2022GL100276",
+        "10.1029/2020JB020411",
+        "10.1016/j.epsl.2025.119372",
+        "10.1029/2025GC012290"
+      ],
+      "cluster_ids": [
+        "glacier-cryosphere"
+      ]
+    },
+    {
+      "name": "paraglacial-hazard-utac",
+      "title": "paraglacial-hazard-utac",
+      "package_id": 102,
+      "themes": [
+        "kryosphaere",
+        "hydrologie",
+        "extreme",
+        "kohlenstoff"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/paraglacial-hazard-utac",
+      "primary_sources_doi": [
+        "10.5194/se-14-1067-2023",
+        "10.1016/S0277-3791(02)00005-7",
+        "10.1002/esp.70063",
+        "10.1029/2006JF000547",
+        "10.1038/s41467-023-36033-x",
+        "10.5194/essd-15-2983-2023"
+      ],
+      "cluster_ids": [
+        "glacier-cryosphere"
+      ]
+    },
+    {
+      "name": "distributed-buffer-resilience-utac",
+      "title": "distributed-buffer-resilience-utac",
+      "package_id": 103,
+      "themes": [
+        "kryosphaere",
+        "biosphaere",
+        "hydrologie"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/distributed-buffer-resilience-utac",
+      "primary_sources_doi": [
+        "10.5194/hess-30-23-2026",
+        "10.1088/1748-9326/11/5/054022",
+        "10.1038/s41586-019-1740-z",
+        "10.1038/s41558-017-0049-x",
+        "10.1038/nature22062",
+        "10.1038/s41586-019-1822-y",
+        "10.1016/j.ecoser.2025.101730"
+      ],
+      "cluster_ids": [
+        "glacier-cryosphere"
+      ]
+    },
+    {
+      "name": "mountain-governance-adaptation-utac",
+      "title": "mountain-governance-adaptation-utac",
+      "package_id": 104,
+      "themes": [
+        "hydrologie",
+        "gesellschaft"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/mountain-governance-adaptation-utac",
+      "primary_sources_doi": [],
+      "cluster_ids": [
+        "glacier-cryosphere"
+      ]
+    },
+    {
+      "name": "black-carbon-albedo-utac",
+      "title": "black-carbon-albedo-utac",
+      "package_id": 105,
+      "themes": [
+        "kryosphaere",
+        "atmosphaere",
+        "hydrologie",
+        "kohlenstoff"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/black-carbon-albedo-utac",
+      "primary_sources_doi": [
+        "10.1016/j.earscirev.2020.103346",
+        "10.1016/j.scitotenv.2017.02.169",
+        "10.1038/s43247-025-02335-9"
+      ],
+      "cluster_ids": [
+        "glacier-cryosphere"
+      ],
+      "cross_cluster_relations": [
+        {
+          "related_package": "arctic-climate-utac",
+          "type": "CONTRAST",
+          "note": "Explicitly different geography (Tibetan Plateau vs. Arctic), no overlap -- documented in the Arctic package."
+        },
+        {
+          "related_package": "antarctic-ice-shelf-utac",
+          "type": "CONTRAST",
+          "note": "Explicitly different geography (Tibetan Plateau vs. Antarctic Peninsula) -- documented in the Antarctic package."
+        },
+        {
+          "related_package": "aerosol-masking-utac",
+          "type": "CONTRAST",
+          "note": "black-carbon-albedo-utac (P105) explicitly frames itself as contrasting aerosol-masking-utac's (P88) global cooling effect -- black carbon warms/darkens locally, sulfate aerosols cool globally via masking."
+        }
+      ]
+    },
+    {
+      "name": "freshwater-ecosystem-stressors-utac",
+      "title": "freshwater-ecosystem-stressors-utac",
+      "package_id": 106,
+      "themes": [
+        "kryosphaere",
+        "biosphaere",
+        "hydrologie",
+        "gesellschaft"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/freshwater-ecosystem-stressors-utac",
+      "primary_sources_doi": [
+        "10.3390/toxins15060403"
+      ],
+      "cluster_ids": [
+        "landuse-biodiversity-driver",
+        "glacier-cryosphere"
+      ]
+    },
+    {
+      "name": "landscape-restoration-hydrology-utac",
+      "title": "landscape-restoration-hydrology-utac",
+      "package_id": 107,
+      "themes": [
+        "biosphaere",
+        "hydrologie",
+        "extreme"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/landscape-restoration-hydrology-utac",
+      "primary_sources_doi": [
+        "10.1007/s11269-017-1805-4"
+      ],
+      "cluster_ids": [
+        "glacier-cryosphere"
+      ]
+    },
+    {
+      "name": "urban-green-infrastructure-utac",
+      "title": "urban-green-infrastructure-utac",
+      "package_id": 108,
+      "themes": [
+        "hydrologie",
+        "gesellschaft"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/urban-green-infrastructure-utac",
+      "primary_sources_doi": [
+        "10.1016/j.resconrec.2021.105577"
+      ],
+      "cluster_ids": [
+        "glacier-cryosphere"
+      ]
+    },
+    {
+      "name": "glacier-legacy-contaminants-utac",
+      "title": "glacier-legacy-contaminants-utac",
+      "package_id": 109,
+      "themes": [
+        "kryosphaere",
+        "biosphaere",
+        "hydrologie",
+        "kohlenstoff"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/glacier-legacy-contaminants-utac",
+      "primary_sources_doi": [
+        "10.1016/j.scitotenv.2021.145244",
+        "10.1021/es901628x",
+        "10.1021/acs.est.1c07062"
+      ],
+      "cluster_ids": [
+        "glacier-cryosphere"
+      ]
+    },
+    {
+      "name": "snowpack-elevation-warming-utac",
+      "title": "snowpack-elevation-warming-utac",
+      "package_id": 110,
+      "themes": [
+        "kryosphaere",
+        "hydrologie"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/snowpack-elevation-warming-utac",
+      "primary_sources_doi": [
+        "10.1038/nclimate2563",
+        "10.5194/tc-15-1343-2021",
+        "10.1038/s41598-022-16743-w",
+        "10.1038/s41612-018-0012-1"
+      ],
+      "cluster_ids": [
+        "glacier-cryosphere"
+      ]
+    },
+    {
+      "name": "climate-disease-attribution-utac",
+      "title": "climate-disease-attribution-utac",
+      "package_id": 111,
+      "themes": [
+        "atmosphaere",
+        "gesellschaft"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/climate-disease-attribution-utac",
+      "primary_sources_doi": [
+        "10.1073/pnas.2512350122",
+        "10.4269/ajtmh.2011.10-0277",
+        "10.1016/S0140-6736(25)01919-1",
+        "10.1038/s41558-022-01426-1"
+      ]
+    },
+    {
+      "name": "multi-purpose-water-storage-utac",
+      "title": "multi-purpose-water-storage-utac",
+      "package_id": 112,
+      "themes": [
+        "biosphaere",
+        "hydrologie",
+        "extreme"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/multi-purpose-water-storage-utac",
+      "primary_sources_doi": [
+        "10.1016/j.est.2022.105716",
+        "10.1016/j.scitotenv.2015.09.073"
+      ]
+    },
+    {
+      "name": "mixed-forest-resilience-utac",
+      "title": "mixed-forest-resilience-utac",
+      "package_id": 113,
+      "themes": [
+        "biosphaere",
+        "kohlenstoff"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/mixed-forest-resilience-utac",
+      "primary_sources_doi": [
+        "10.1007/s10342-008-0215-9",
+        "10.1111/j.1461-0248.2007.01073.x",
+        "10.1007/s10340-025-01995-y",
+        "10.1016/j.foreco.2025.122829",
+        "10.1016/j.agrformet.2021.108482"
+      ],
+      "cluster_ids": [
+        "landuse-biodiversity-driver"
+      ]
+    },
+    {
+      "name": "coral-reef-utac",
+      "title": "coral-reef-utac",
+      "package_id": 114,
+      "themes": [
+        "ozean",
+        "biosphaere",
+        "extreme"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/coral-reef-utac",
+      "primary_sources_doi": [
+        "10.1038/nature21707",
+        "10.1126/science.aan8048",
+        "10.1126/sciadv.aba9958",
+        "10.1111/eva.13500",
+        "10.59387/LFPR6347"
+      ],
+      "cluster_ids": [
+        "marine-physiology",
+        "intervention-despite-decline"
+      ]
+    },
+    {
+      "name": "biodiversity-utac",
+      "title": "biodiversity-utac",
+      "package_id": 115,
+      "themes": [
+        "biosphaere"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/biodiversity-utac",
+      "primary_sources_doi": [
+        "10.2307/3545823",
+        "10.1126/science.1101101",
+        "10.1371/journal.pbio.3003051"
+      ],
+      "cluster_ids": [
+        "landuse-biodiversity-driver",
+        "intervention-despite-decline"
+      ]
+    },
+    {
+      "name": "pollinator-network-utac",
+      "title": "pollinator-network-utac",
+      "package_id": 116,
+      "themes": [
+        "biosphaere",
+        "gesellschaft"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/pollinator-network-utac",
+      "primary_sources_doi": [
+        "10.1371/journal.pone.0185809",
+        "10.1111/1365-2435.12823",
+        "10.1038/s41598-019-41271-5"
+      ]
+    },
+    {
+      "name": "invasive-species-utac",
+      "title": "invasive-species-utac",
+      "package_id": 117,
+      "themes": [
+        "biosphaere"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/invasive-species-utac",
+      "primary_sources_doi": [
+        "10.5281/zenodo.7430682",
+        "10.1139/cjfas-2017-0056",
+        "10.1038/s41598-022-14982-5"
+      ]
+    },
+    {
+      "name": "el-nino-amplification-utac",
+      "title": "el-nino-amplification-utac",
+      "package_id": 118,
+      "themes": [
+        "ozean",
+        "biosphaere"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/el-nino-amplification-utac",
+      "primary_sources_doi": [
+        "10.1126/science.ady2660",
+        "10.1029/2025GL119006"
+      ],
+      "cross_cluster_relations": [
+        {
+          "related_package": "antarctic-ice-shelf-utac",
+          "type": "ASSOCIATED_NON_OVERLAPPING",
+          "note": "Same overarching topic (ENSO), documented deliberate non-overlap in antarctic-ice-shelf-utac's ENSO module."
+        }
+      ]
+    },
+    {
+      "name": "marine-heatwave-utac",
+      "title": "marine-heatwave-utac",
+      "package_id": 119,
+      "themes": [
+        "ozean",
+        "extreme"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/marine-heatwave-utac",
+      "primary_sources_doi": [
+        "10.1029/2025JC023614"
+      ],
+      "cluster_ids": [
+        "marine-physiology"
+      ],
+      "cross_cluster_relations": [
+        {
+          "related_package": "antarctic-ice-shelf-utac",
+          "type": "ASSOCIATED_NON_OVERLAPPING",
+          "note": "Same boundary as above, documented in antarctic-ice-shelf-utac's ENSO module."
+        }
+      ]
+    },
+    {
+      "name": "antarctic-ice-shelf-utac",
+      "title": "antarctic-ice-shelf-utac",
+      "package_id": 120,
+      "themes": [
+        "kryosphaere",
+        "ozean",
+        "hydrologie",
+        "kohlenstoff"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/antarctic-ice-shelf-utac",
+      "primary_sources_doi": [
+        "10.1126/sciadv.adi0186",
+        "10.5194/tc-20-1087-2026",
+        "10.1038/s41467-025-63773-9",
+        "10.1038/s41561-022-01059-1",
+        "10.1038/s43247-022-00458-x",
+        "10.1038/s41561-023-01317-w",
+        "10.1038/s41561-021-00841-x",
+        "10.1038/nature06990",
+        "10.1038/s41467-022-28560-w",
+        "10.1126/sciadv.adp1682",
+        "10.1038/s41561-017-0033-0"
+      ],
+      "cluster_ids": [
+        "polar-system"
+      ],
+      "cross_cluster_relations": [
+        {
+          "related_package": "black-carbon-albedo-utac",
+          "type": "CONTRAST",
+          "note": "Explicitly different geography (Tibetan Plateau vs. Antarctic Peninsula) -- documented in the Antarctic package."
+        },
+        {
+          "related_package": "el-nino-amplification-utac",
+          "type": "ASSOCIATED_NON_OVERLAPPING",
+          "note": "Same overarching topic (ENSO), documented deliberate non-overlap in antarctic-ice-shelf-utac's ENSO module."
+        },
+        {
+          "related_package": "marine-heatwave-utac",
+          "type": "ASSOCIATED_NON_OVERLAPPING",
+          "note": "Same boundary as above, documented in antarctic-ice-shelf-utac's ENSO module."
+        }
+      ]
+    },
+    {
+      "name": "wildfire-flood-cascade-utac",
+      "title": "wildfire-flood-cascade-utac",
+      "package_id": 121,
+      "themes": [
+        "atmosphaere",
+        "hydrologie",
+        "extreme"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/wildfire-flood-cascade-utac",
+      "primary_sources_doi": [
+        "10.1029/2025GL121153",
+        "10.1126/sciadv.adt2041",
+        "10.1038/s41612-025-01047-3",
+        "10.1038/s41467-026-68929-9",
+        "10.1038/s43247-025-02748-6",
+        "10.1038/s43247-026-03517-9",
+        "10.1016/j.jenvman.2026.129513"
+      ]
+    },
+    {
+      "name": "ocean-acidification-utac",
+      "title": "ocean-acidification-utac",
+      "package_id": 122,
+      "themes": [
+        "ozean"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/ocean-acidification-utac",
+      "primary_sources_doi": [
+        "10.1111/gcb.70238",
+        "10.1093/nsr/nwag173"
+      ],
+      "cluster_ids": [
+        "marine-physiology"
+      ]
+    },
+    {
+      "name": "tropical-glacier-ecosystem-rle-utac",
+      "title": "tropical-glacier-ecosystem-rle-utac",
+      "package_id": 123,
+      "themes": [
+        "kryosphaere",
+        "biosphaere",
+        "hydrologie"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/tropical-glacier-ecosystem-rle-utac",
+      "primary_sources_doi": [
+        "10.1017/S0030605323001771",
+        "10.1088/2752-5295/ad1fd7"
+      ],
+      "cluster_ids": [
+        "glacier-cryosphere"
+      ]
+    },
+    {
+      "name": "marine-compound-stressors-utac",
+      "title": "marine-compound-stressors-utac",
+      "package_id": 124,
+      "themes": [
+        "ozean",
+        "biosphaere",
+        "extreme"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/marine-compound-stressors-utac",
+      "primary_sources_doi": [
+        "10.1029/2023AV001059",
+        "10.1126/science.aaa1605",
+        "10.5194/bg-20-2425-2023"
+      ],
+      "cluster_ids": [
+        "marine-physiology"
+      ]
+    },
+    {
+      "name": "assisted-gene-flow-utac",
+      "title": "assisted-gene-flow-utac",
+      "package_id": 125,
+      "themes": [
+        "ozean",
+        "biosphaere"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/assisted-gene-flow-utac",
+      "primary_sources_doi": [
+        "10.1126/science.adx5842",
+        "10.1098/rspb.2025.1817",
+        "10.1111/ele.12376"
+      ],
+      "cluster_ids": [
+        "intervention-despite-decline"
+      ]
+    },
+    {
+      "name": "climate-landuse-biodiversity-nexus-utac",
+      "title": "climate-landuse-biodiversity-nexus-utac",
+      "package_id": 126,
+      "themes": [
+        "ozean",
+        "biosphaere",
+        "hydrologie"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/climate-landuse-biodiversity-nexus-utac",
+      "primary_sources_doi": [
+        "10.1126/sciadv.abm9982"
+      ],
+      "cluster_ids": [
+        "landuse-biodiversity-driver"
+      ]
+    },
+    {
+      "name": "arctic-climate-utac",
+      "title": "arctic-climate-utac",
+      "package_id": 127,
+      "themes": [
+        "kryosphaere",
+        "ozean",
+        "atmosphaere",
+        "kohlenstoff"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/arctic-climate-utac",
+      "primary_sources_doi": [
+        "10.1029/2024GL109608",
+        "10.5194/tc-19-6807-2025",
+        "10.1038/s41586-019-1855-2",
+        "10.1038/NCLIMATE2161",
+        "10.1038/nature14338",
+        "10.1038/s41561-019-0526-0",
+        "10.1038/s41558-019-0592-8",
+        "10.1038/s41558-024-02234-5",
+        "10.1126/science.abi9167",
+        "10.1126/sciadv.aay2880",
+        "10.1088/2752-5295/ad93f3",
+        "10.1016/j.scitotenv.2025.178423",
+        "10.1126/science.1174190",
+        "10.1371/journal.pone.0073796",
+        "10.1073/pnas.2019672118"
+      ],
+      "cluster_ids": [
+        "polar-system"
+      ],
+      "cross_cluster_relations": [
+        {
+          "related_package": "black-carbon-albedo-utac",
+          "type": "CONTRAST",
+          "note": "Explicitly different geography (Tibetan Plateau vs. Arctic), no overlap -- documented in the Arctic package."
+        }
+      ]
+    },
+    {
+      "name": "polar-biodiversity-utac",
+      "title": "polar-biodiversity-utac",
+      "package_id": 128,
+      "themes": [
+        "biosphaere",
+        "ozean",
+        "kryosphaere"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/polar-biodiversity-utac",
+      "primary_sources_doi": [
+        "10.1038/s43247-023-00927-x",
+        "10.1038/s41598-020-76479-3",
+        "10.1126/science.adp3752",
+        "10.1890/14-1129.1",
+        "10.1111/mms.13107",
+        "10.1098/rsos.190368",
+        "10.1038/s41467-024-51954-x",
+        "10.1002/jwmg.22657",
+        "10.1038/s41558-018-0370-z",
+        "10.1093/icesjms/fsaf049",
+        "10.1111/gcb.15937",
+        "10.1126/science.aay8380",
+        "10.1007/s00300-016-2023-x",
+        "10.1111/gcb.70290",
+        "10.1126/sciadv.abh3674",
+        "10.1111/cobi.70126",
+        "10.1038/s41561-024-01564-5",
+        "10.1890/09-1070.1",
+        "10.1038/s42003-022-03042-3"
+      ],
+      "cluster_ids": [
+        "polar-system"
+      ]
+    },
+    {
+      "name": "resilience-memory-utac",
+      "title": "resilience-memory-utac",
+      "package_id": 97,
+      "themes": [
+        "extreme"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/resilience-memory-utac",
+      "primary_sources_doi": [],
+      "zenodo_doi": "10.5281/zenodo.21821795"
+    }
+  ],
+  "methodology": "Themes are the catalog's own author-assigned domain tags (src/lib/catalog/seed.ts). Clusters and cross_cluster_edges are compiled only from relationships explicitly stated in a package's own abstract/README/DISCLAIMER text (see src/lib/catalog/cascade.ts) -- not from thematic similarity or automated matching. No semantic inference, no embeddings."
+}
