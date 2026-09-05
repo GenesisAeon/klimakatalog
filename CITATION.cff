@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: >
+  If you use this catalog, please cite it and the individual packages it indexes.
+title: "Klimakatalog: a curated catalog of GenesisAeon climate science packages"
+abstract: >
+  Curated catalog of 46+ GenesisAeon climate-science packages (P17-P128),
+  each with its own real, citable abstract, DOIs, and domain-theme tags
+  (atmosphere, ocean, cryosphere, biosphere, hydrology, carbon cycle,
+  society, extremes). Additionally exposes a semantic map (src/lib/catalog/
+  cascade.ts): clusters and cross-cluster relationships compiled only from
+  connections explicitly documented in a package's own abstract or README
+  ("companion to", "extends the ... series", "bridges") -- not from
+  thematic similarity or automated matching. Does not itself perform any
+  climate modeling; it is a navigation layer over independently published
+  packages.
+version: "1.2.0"
+date-released: "2026-09-05"
+license: MIT
+repository-code: "https://github.com/GenesisAeon/klimakatalog"
+keywords:
+  - GenesisAeon
+  - climate
+  - catalog
+  - open-science
+  - semantic map
+authors:
+  - name: "MOR Research Collective / GenesisAeon"
+    email: "joberoemer@gmail.com"
