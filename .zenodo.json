@@ -1,6 +1,6 @@
 {
   "title": "Klimakatalog — a curated catalog of GenesisAeon climate science packages",
-  "description": "<p>Curated catalog of 46+ GenesisAeon climate-science packages (P17-P128), each with its own real, citable abstract, DOIs, and domain-theme tags (atmosphere, ocean, cryosphere, biosphere, hydrology, carbon cycle, society, extremes). Additionally exposes a semantic map: clusters and cross-cluster relationships compiled only from connections explicitly documented in a package's own abstract or README -- not from thematic similarity or automated matching. Machine-readable via /llms.txt and /context.json. Does not itself perform any climate modeling; it is a navigation layer over independently published packages. Part of the <strong>GenesisAeon</strong> ecosystem.</p>",
+  "description": "<p>Curated catalog of 47+ GenesisAeon climate-science packages (P17-P129), each with its own real, citable abstract, DOIs, and domain-theme tags (atmosphere, ocean, cryosphere, biosphere, hydrology, carbon cycle, society, extremes). Additionally exposes a semantic map: clusters and cross-cluster relationships compiled only from connections explicitly documented in a package's own abstract or README -- not from thematic similarity or automated matching. Machine-readable via /llms.txt and /context.json. Does not itself perform any climate modeling; it is a navigation layer over independently published packages. Part of the <strong>GenesisAeon</strong> ecosystem.</p>",
   "creators": [
     {
       "name": "Römer, Johann",
@@ -10,7 +10,7 @@
   "license": "MIT",
   "upload_type": "software",
   "access_right": "open",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "keywords": [
     "GenesisAeon",
     "climate",

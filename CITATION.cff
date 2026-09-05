@@ -3,7 +3,7 @@ message: >
   If you use this catalog, please cite it and the individual packages it indexes.
 title: "Klimakatalog: a curated catalog of GenesisAeon climate science packages"
 abstract: >
-  Curated catalog of 46+ GenesisAeon climate-science packages (P17-P128),
+  Curated catalog of 47+ GenesisAeon climate-science packages (P17-P129),
   each with its own real, citable abstract, DOIs, and domain-theme tags
   (atmosphere, ocean, cryosphere, biosphere, hydrology, carbon cycle,
   society, extremes). Additionally exposes a semantic map (src/lib/catalog/
@@ -13,7 +13,7 @@ abstract: >
   thematic similarity or automated matching. Does not itself perform any
   climate modeling; it is a navigation layer over independently published
   packages.
-version: "1.2.0"
+version: "1.3.0"
 date-released: "2026-09-05"
 license: MIT
 repository-code: "https://github.com/GenesisAeon/klimakatalog"

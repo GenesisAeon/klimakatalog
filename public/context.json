@@ -5,7 +5,7 @@
     "title": "Klimakatalog",
     "repo_url": "https://github.com/GenesisAeon/klimakatalog",
     "live_url": "https://klimakatalog.vercel.app",
-    "package_count": 46,
+    "package_count": 47,
     "note": "This is the curated core with full abstracts/themes/DOIs. The live site additionally lists further GenesisAeon repos fetched live from GitHub that are not yet part of this curated seed set (no themes/cluster data yet for those)."
   },
   "themes": {
@@ -59,7 +59,8 @@
         "urban-green-infrastructure-utac",
         "glacier-legacy-contaminants-utac",
         "snowpack-elevation-warming-utac",
-        "tropical-glacier-ecosystem-rle-utac"
+        "tropical-glacier-ecosystem-rle-utac",
+        "glacier-microbiome-succession-utac"
       ],
       "note": "Explicit self-named 'P99-P103 series' plus its documented extensions (P104 governance closing chapter, P105 atmospheric-deposition lens, P106 ecological bridge, P107 hydrology extension, P108 companion, P109 bridges P99/P105/P106, P110 quantifies P103's snow buffer). All relationship phrases are quoted verbatim from each package's own abstract."
     },
@@ -933,6 +934,25 @@
       ],
       "cluster_ids": [
         "polar-system"
+      ]
+    },
+    {
+      "name": "glacier-microbiome-succession-utac",
+      "title": "glacier-microbiome-succession-utac",
+      "package_id": 129,
+      "themes": [
+        "kryosphaere",
+        "biosphaere",
+        "hydrologie"
+      ],
+      "repo_url": "https://github.com/GenesisAeon/glacier-microbiome-succession-utac",
+      "primary_sources_doi": [
+        "10.1038/s44358-025-00049-6",
+        "10.1038/s41586-024-08313-z",
+        "10.1038/s41467-025-56426-4"
+      ],
+      "cluster_ids": [
+        "glacier-cryosphere"
       ]
     },
     {
